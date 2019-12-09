@@ -26,7 +26,6 @@ def get_directed_distance_tuple_from_direction_tuple_and_distance(direction_tupl
     return tuple([unit * distance for unit in direction_tuple])
 
 def plot_named_directed_distance_from_origin(name, direction, distance, origin, traveled_so_far): 
-    print('traveled so far: ' + str(traveled_so_far))
     if distance < 0: return traveled_so_far
     origin_x = origin[0]
     origin_y = origin[1]
@@ -36,7 +35,6 @@ def plot_named_directed_distance_from_origin(name, direction, distance, origin, 
         if (len(tokens)):
             point = (origin_x,origin_y)
             global_intersections.append(point)
-            print('intersection at: ' + str(point))
         grid[origin_x][origin_y] += name + "("+str(traveled_so_far)+")"
         distance -= 1
         traveled_so_far += 1
@@ -91,7 +89,6 @@ def find_closest_intersection_distance(intersections):
     for intersection in intersections:
         distance_from_center = get_distance_from_center(intersection)
         if distance_from_center < min_distance and distance_from_center > 0:
-            print(distance_from_center)
             min_distance = distance_from_center
             closest_intersection = intersection
     return min_distance
@@ -101,7 +98,6 @@ def get_combined_signal_noise(intersection):
     pattern = re.compile('line1\((\d+)\).*?line2\((\d+)\)')
     match = pattern.search(intersection_string)
     total = int(match.group(1)) + int(match.group(2))
-    print(match.group(0) + ": " + str(total))
     return total
 
 def find_least_signal_noise_intersection(intersections):
@@ -110,7 +106,6 @@ def find_least_signal_noise_intersection(intersections):
     for intersection in intersections:
         signal_noise = get_combined_signal_noise(intersection)
         if signal_noise < min_signal_noise and signal_noise > 0:
-            print(signal_noise)
             min_signal_noise = signal_noise
             closest_intersection = intersection
     return min_signal_noise
